@@ -8,7 +8,8 @@ namespace ScriptableObjectArchitecture
 {
     public abstract class BaseVariable : GameEventBase
     {
-        
+        public string m_DataKey;
+
 #if UNITY_EDITOR
         public virtual string[] propNames { get; }
 #endif
@@ -18,15 +19,36 @@ namespace ScriptableObjectArchitecture
         public abstract System.Type Type { get; }
         public abstract object BaseValue { get; set; }
     }
-    public abstract class BaseVariable<T> : BaseVariable,ISerializationCallbackReceiver
+    public abstract class BaseVariable<T> : BaseVariable, ISerializationCallbackReceiver
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         [ShowInInspector]
         [HideInEditorMode]
-        #endif
-        protected T runtimeValue { get; set; }
+#endif
 
-        private bool IsRunTime => Application.isPlaying; 
+        protected bool isSetup;
+
+        protected T runtimeValue
+        {
+            get
+            {
+                if (!isSetup)
+                {
+                    isSetup = true;
+                    return ES3.Load(m_DataKey, _value);
+                }
+                else
+                {
+                    return runtimeValue;
+                }
+            }
+            set
+            {
+
+            }
+        }
+
+        private bool IsRunTime => Application.isPlaying;
         public virtual T ValueRaw
         {
             get => IsRunTime ? runtimeValue : _value;
@@ -40,7 +62,7 @@ namespace ScriptableObjectArchitecture
                 {
                     _value = SetValue(value);
                 }
-            
+
             }
         }
         public virtual T Value
@@ -56,7 +78,7 @@ namespace ScriptableObjectArchitecture
                 {
                     _value = SetValue(value);
                 }
-            
+
                 Raise();
             }
         }
@@ -64,7 +86,7 @@ namespace ScriptableObjectArchitecture
         {
             get
             {
-                if(Clampable)
+                if (Clampable)
                 {
                     return _minClampedValue;
                 }
@@ -78,7 +100,7 @@ namespace ScriptableObjectArchitecture
         {
             get
             {
-                if(Clampable)
+                if (Clampable)
                 {
                     return _maxClampedValue;
                 }
@@ -106,7 +128,7 @@ namespace ScriptableObjectArchitecture
             }
         }
 
-        [SerializeField]    
+        [SerializeField]
         [HideInPlayMode]
         protected T _value = default(T);
         [SerializeField]
@@ -136,13 +158,13 @@ namespace ScriptableObjectArchitecture
                 RaiseReadonlyWarning();
                 return Value;
             }
-            else if(Clampable && IsClamped)
+            else if (Clampable && IsClamped)
             {
                 return ClampValue(value);
             }
 
             return value;
-        }        
+        }
         protected virtual T ClampValue(T value)
         {
             return value;
@@ -162,17 +184,17 @@ namespace ScriptableObjectArchitecture
         {
             return variable.Value;
         }
- 
+
 
         public virtual void OnBeforeSerialize()
         {
-        
+
         }
 
         public virtual void OnAfterDeserialize()
         {
-              runtimeValue = (T) SerializationUtility.CreateCopy( _value);
-            
+            runtimeValue = (T)SerializationUtility.CreateCopy(_value);
+
         }
     }
     public abstract class BaseVariable<T, TEvent> : BaseVariable<T> where TEvent : UnityEvent<T>
