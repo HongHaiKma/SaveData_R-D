@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c9ee52eca7d0b40b0de51c4c0cde3e, type: 3}
+  m_Name: PlayModeResetter
+  m_EditorClassIdentifier: 
+  _path: Assets/Obvious/Soap/Examples/Content/ScriptableVariables
+  _autoPopulate: 1
+  _variablesToReset:
+  - {fileID: 11400000, guid: 6c455a299abc5e348bd98f6344a7a512, type: 2}
+  - {fileID: 11400000, guid: 4d77b00fc59b6c043aa93d4165cb1355, type: 2}
+  - {fileID: 11400000, guid: 12c72dffb97d7bd47bb9fcaf283a2cbb, type: 2}
+  - {fileID: 11400000, guid: 8f6a7757cb902e2439f0278bb02cc076, type: 2}
+  - {fileID: 11400000, guid: 1e41cb1a09a2ee243b5bc12fc79fc070, type: 2}
+  - {fileID: 11400000, guid: dacfa78ccde7e0f4e9821e281a0fd4af, type: 2}
+  - {fileID: 11400000, guid: 4804568edeaeb5043b733966024848e8, type: 2}
+  - {fileID: 11400000, guid: 1afe66c634254d647bce4ea62658436e, type: 2}
+  - {fileID: 11400000, guid: b08cb27373ceb6145928118d45e09460, type: 2}
+  - {fileID: 11400000, guid: 74232fc3ab32f0a44a8b287c0da8850f, type: 2}
