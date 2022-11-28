@@ -6,18 +6,34 @@ using TMPro;
 public class MainCanvas : MonoBehaviour
 {
     public TextMeshProUGUI txt_Gold;
+    public TextMeshProUGUI txt_Gold2;
     public Obvious.Soap.IntVariable m_Gold;
 
     void OnEnable()
     {
+        // m_Gold2.Value = DataManager.Instance.m_GoldSoap.Value;
         txt_Gold.text = m_Gold.Value.ToString();
+        Debug.Log("Gold OnEnable: " + m_Gold.Value.ToString());
+        Debug.Log("Gold ES OnEnable: " + ES3.Load("Gold", m_Gold._initialValue));
+        // txt_Gold2.text = DataManager.Instance.m_GoldSoap.Value.ToString();
     }
 
+    [Sirenix.OdinInspector.Button]
     public void ConsumeGold()
     {
         m_Gold.Value -= 10;
         ES3.Save("Gold", m_Gold.Value);
 
+        Debug.Log("Gold ConsumeGold: " + m_Gold.Value);
+        Debug.Log("Gold ES ConsumeGold: " + ES3.Load("Gold", m_Gold._initialValue));
+
         txt_Gold.text = m_Gold.Value.ToString();
+        // txt_Gold.text = DataManager.Instance.m_GoldSoap.Value.ToString();
+    }
+
+    [Sirenix.OdinInspector.Button]
+    public void Test()
+    {
+        txt_Gold.text = DataManager.Instance.m_GoldSoap.Value.ToString();
     }
 }

@@ -17,6 +17,9 @@ public class DataManager : Singleton<DataManager>
     {
         m_GoldSoap.Value = ES3.Load("Gold", m_GoldSoap._initialValue);
 
+        Debug.Log("m_Gold: " + m_GoldSoap.Value.ToString());
+        Debug.Log("Gold ES: " + ES3.Load("Gold", m_GoldSoap._initialValue));
+
         m_GoldSoap.OnValueChanged += OnGoldChanged;
     }
 
