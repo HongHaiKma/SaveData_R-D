@@ -5,7 +5,7 @@ using UnityEngine;
 [DefaultExecutionOrder(-99)]
 public class DataManager : Singleton<DataManager>
 {
-    public Obvious.Soap.IntVariable m_GoldSoap;
+    public Obvious.Soap.IntVariable m_Gold;
 
     // public override void Awake()
     // {
@@ -15,27 +15,33 @@ public class DataManager : Singleton<DataManager>
 
     private void OnEnable()
     {
-        m_GoldSoap.Value = ES3.Load("Gold", m_GoldSoap._initialValue);
+        m_Gold.Value = ES3.Load("Gold", m_Gold._initialValue);
 
-        Debug.Log("m_Gold: " + m_GoldSoap.Value.ToString());
-        Debug.Log("Gold ES: " + ES3.Load("Gold", m_GoldSoap._initialValue));
+        // Debug.Log("m_Gold: " + m_GoldSoap.Value.ToString());
+        // Debug.Log("Gold ES: " + ES3.Load("Gold", m_GoldSoap._initialValue));
 
-        m_GoldSoap.OnValueChanged += OnGoldChanged;
+        m_Gold.OnValueChanged += OnGoldChanged;
     }
 
     private void OnDisable()
     {
-        m_GoldSoap.OnValueChanged -= OnGoldChanged;
+        m_Gold.OnValueChanged -= OnGoldChanged;
     }
 
     private void OnDestroy()
     {
-        m_GoldSoap.OnValueChanged -= OnGoldChanged;
+        // m_GoldSoap.OnValueChanged -= OnGoldChanged;
     }
 
     private void OnGoldChanged(int _value)
     {
         Debug.Log("SAVEEEEEEEEE: " + _value);
-        ES3.Save("Gold", m_GoldSoap.Value);
+        ES3.Save("Gold", m_Gold.Value);
+    }
+
+    [Sirenix.OdinInspector.Button]
+    public void ResetSOData()
+    {
+        m_Gold.Value = m_Gold._initialValue;
     }
 }

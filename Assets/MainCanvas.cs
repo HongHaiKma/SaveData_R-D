@@ -12,28 +12,43 @@ public class MainCanvas : MonoBehaviour
     void OnEnable()
     {
         // m_Gold2.Value = DataManager.Instance.m_GoldSoap.Value;
-        txt_Gold.text = m_Gold.Value.ToString();
-        Debug.Log("Gold OnEnable: " + m_Gold.Value.ToString());
-        Debug.Log("Gold ES OnEnable: " + ES3.Load("Gold", m_Gold._initialValue));
+        // txt_Gold.text = m_Gold.Value.ToString();
+        // Debug.Log("Gold OnEnable: " + m_Gold.Value.ToString());
+        // Debug.Log("Gold ES OnEnable: " + ES3.Load("Gold", m_Gold._initialValue));
         // txt_Gold2.text = DataManager.Instance.m_GoldSoap.Value.ToString();
+        m_Gold = DataManager.Instance.m_Gold;
+        txt_Gold.text = m_Gold.Value.ToString();
+
+        // m_Gold.OnValueChanged += OnChangedValue;
+    }
+
+    private void OnDisable()
+    {
+        // m_Gold.OnValueChanged -= OnChangedValue;
     }
 
     [Sirenix.OdinInspector.Button]
     public void ConsumeGold()
     {
         m_Gold.Value -= 10;
-        ES3.Save("Gold", m_Gold.Value);
+        // m_Gold.Save();
+        // ES3.Save("Gold", m_Gold.Value);
 
-        Debug.Log("Gold ConsumeGold: " + m_Gold.Value);
-        Debug.Log("Gold ES ConsumeGold: " + ES3.Load("Gold", m_Gold._initialValue));
+        // Debug.Log("Gold ConsumeGold: " + m_Gold.Value);
+        // Debug.Log("Gold ES ConsumeGold: " + ES3.Load("Gold", m_Gold._initialValue));
 
         txt_Gold.text = m_Gold.Value.ToString();
         // txt_Gold.text = DataManager.Instance.m_GoldSoap.Value.ToString();
     }
 
-    [Sirenix.OdinInspector.Button]
-    public void Test()
+    void OnChangedValue(int _value)
     {
-        txt_Gold.text = DataManager.Instance.m_GoldSoap.Value.ToString();
+        Debug.Log("GGGGGGGGGGGGG");
     }
+
+    // [Sirenix.OdinInspector.Button]
+    // public void Test()
+    // {
+    //     txt_Gold.text = DataManager.Instance.m_Gold.Value.ToString();
+    // }
 }
